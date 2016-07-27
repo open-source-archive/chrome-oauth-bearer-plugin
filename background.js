@@ -54,7 +54,6 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
         var match = false;
         for (i = 0; i < urlPatternsArray.length; i++) {
             if (startsWithPattern(details.url, urlPatternsArray[i])) {
-//			if (details.url.startsWith(urlPatternsArray[i])) {
                 match = true;
                 break;
             }
