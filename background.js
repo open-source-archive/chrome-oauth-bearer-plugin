@@ -1,14 +1,12 @@
-
 var urlPatterns;
 var authUrl;
-var userName;
+var username;
 var password;
 var token;
-var fixedToken;
 
 function fetchToken() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', authUrl, true, userName, password);
+    xhr.open('GET', authUrl, true, username, password);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4) {
             token = xhr.responseText.replace("\n", "");
@@ -17,57 +15,44 @@ function fetchToken() {
     xhr.send(null);
 }
 
-function init() {
-    chrome.storage.sync.get({
-        url: '<unknown>',
-        username: '<unknown>',
-        password: '<unknown>',
-        authURL: '<unknown>'
-
-    }, function(items) {
-        urlPatterns = items.url;
-        userName = items.username;
-        authUrl = items.authURL;
-        password = items.password;
-        fetchToken();
-    });
-}
-
-function updateSetting (url_pattern, user_name, auth_url, pass_word) {
+function updateSetting(url_pattern, user, auth_url, pass) {
     urlPatterns = url_pattern;
     authUrl = auth_url;
-    userName = user_name;
-    password = pass_word;
+    username = user;
+    password = pass;
     fetchToken();
+    updateAuthListener();
 }
 
+function updateAuthListener() {
+    chrome.webRequest.onBeforeSendHeaders.removeListener(authListener);
+    var patterns = urlPatterns.split("\n");
+    if (patterns) {
+        chrome.webRequest.onBeforeSendHeaders.addListener(authListener,
+            {"urls": patterns},
+            ["requestHeaders", "blocking"]);
+    }
+}
 
-chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
-    if (token && urlPatterns) {
-        var urlPatternsArray =  urlPatterns.split("\n")
-        var match = false;
-        for (i = 0; i < urlPatternsArray.length; i++) {
-            if (details.url.startsWith(urlPatternsArray[i])) {
-                match = true;
-                break;
-            }
-        }
-        if (match) {
-            console.log("Setting Authorization Header.");
-            details.requestHeaders.push({name:"Authorization",value:"Bearer " + token});
-        }
+function authListener(details) {
+    if (token) {
+        console.log("Setting Authorization Header.");
+        details.requestHeaders.push({name:"Authorization", value:"Bearer " + token});
     }
     return {requestHeaders: details.requestHeaders};
-},
-{"urls":["*://*/*"]},
-["requestHeaders", "blocking"]);
+}
 
 chrome.alarms.onAlarm.addListener(function(alarm){
     fetchToken();
 });
-
-init()
-
 chrome.alarms.create("refresh_token", {periodInMinutes:40});
 
+chrome.storage.sync.get({
+    url: '<unknown>',
+    username: '<unknown>',
+    password: '<unknown>',
+    authURL: '<unknown>'
 
+}, function(items) {
+	updateSetting(items.url, items.username, items.authURL, items.password);
+});
