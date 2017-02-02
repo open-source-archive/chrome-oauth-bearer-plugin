@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/zalando/chrome-oauth-bearer-plugin/issues"
   },
-  "homepage": "https://github.com/zalando/chrome-oauth-bearer-plugin#readme"
+  "homepage": "https://github.com/zalando/chrome-oauth-bearer-plugin#readme",
+  "dependencies": {
+    "crx": "^3.2.1"
+  }
 }
