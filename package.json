@@ -1,0 +1,24 @@
+{
+  "name": "chrome-oauth-bearer-plugin",
+  "version": "1.0.0",
+  "description": "Plugin that sets \"Authorization\" header with a Bearer token for HTTP requests using your login and password for the authentication server",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zalando/chrome-oauth-bearer-plugin.git"
+  },
+  "keywords": [
+    "OAuth",
+    "Bearer",
+    "Authorization",
+    "HTTP"
+  ],
+  "author": "Daniel Nowak <daniel.nowak@zalando.de>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zalando/chrome-oauth-bearer-plugin/issues"
+  },
+  "homepage": "https://github.com/zalando/chrome-oauth-bearer-plugin#readme"
+}
