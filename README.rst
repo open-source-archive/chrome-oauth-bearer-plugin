@@ -9,9 +9,6 @@ RESTful resource servers (microservices) should be kept simple and thus do not i
 
 See also the `HTTPie Zign plugin`_ which does something similar for HTTP requests on the command line.
 
-.. _HTTPie Zign plugin: https://pypi.python.org/pypi/httpie-zign
-
-
 Usage
 =====
 
@@ -26,5 +23,15 @@ Usage
 9. enter the token service URL, the URLs where the auth header should be added, your username and password
 10. start using your APIs via Chrome
 
+Creating the package file
+=========================
+The file is used for publishing on Chrome Web Store. Unfortunately, it does not properly work when you use it locally (once it's disabled, can't be enabled again).
+
+1. install `node.js`_ on your machine
+2. run "make" in the project's folder
+3. you will have the .crx file in ./bin directory which you can publish on Chrome Web Store
+
+.. _HTTPie Zign plugin: https://pypi.python.org/pypi/httpie-zign
 .. _Chrome extensions: chrome://extensions/
+.. _node.js: https://nodejs.org/
 
