@@ -17,9 +17,9 @@ Usage
 3. open Chrome
 4. open `Chrome extensions`_ [enter chrome://extensions/ in your navbar]
 5. enable the developer mode
-6. Load unpacked extensions ...
-7. Select the plugin you just have downloaded via git
-8. open options page
+6. click on Load unpacked extensions
+7. select the src folder in the plugin you just downloaded via git
+8. open Options page
 9. enter the token service URL, the URLs where the auth header should be added, your username and password
 10. start using your APIs via Chrome
 
