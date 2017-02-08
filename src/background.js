@@ -6,12 +6,16 @@ var token;
 
 function fetchToken() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', authUrl, true, escape(username), escape(password));
+    var authHeader = "Basic " + btoa(username + ":" + password);
+
+    xhr.open('GET', authUrl, true);
+    xhr.setRequestHeader("Authorization", authHeader);
+
     xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
+        if (xhr.readyState == 4 && xhr.status === 200) {
             token = xhr.responseText.replace("\n", "");
         }
-    }
+    };
     xhr.send(null);
 }
 
