@@ -30,7 +30,7 @@ function updateSetting(url_pattern, user, auth_url, pass) {
 
 function updateAuthListener() {
     chrome.webRequest.onBeforeSendHeaders.removeListener(authListener);
-    var patterns = urlPatterns.split("\n");
+    var patterns = urlPatterns.split("\n").filter(function(p) { return p.trim().length > 0; });
     if (patterns) {
         chrome.webRequest.onBeforeSendHeaders.addListener(authListener,
             {"urls": patterns},
